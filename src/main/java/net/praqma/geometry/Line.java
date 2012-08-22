@@ -11,7 +11,7 @@ public class Line extends Geometry {
 		if( d2 != 0 ) {
 			return d / d2;
 		} else {
-			throw new IllegalArgumentException( "The line vertices are coincident" );
+			return 0; /* Points are coincident */
 		}
 	}
 	

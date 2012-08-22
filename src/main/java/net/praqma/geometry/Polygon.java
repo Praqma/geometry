@@ -12,7 +12,6 @@ public class Polygon extends Geometry {
 		
 		/* TODO: Should we test the size? */
 		
-		double xIntersects;
 		int counter = 0;
 		Point p1 = points.get( 0 ), p2 = null;
 		
