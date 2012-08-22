@@ -126,7 +126,7 @@ public class TestPolygon extends Geometry {
 		Point a7 = new Point( 1.5, 1.0 );
 		Point a8 = new Point( 1.0, 0.0 );
 		
-		assertThat( p.contains( a1 ), is( true ) );
+		assertThat( p.contains( a1 ), is( false ) );
 		assertThat( p.contains( a2 ), is( true ) );
 		assertThat( p.contains( a3 ), is( false ) );
 		assertThat( p.contains( a4 ), is( true ) );

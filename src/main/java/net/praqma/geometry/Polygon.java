@@ -30,18 +30,13 @@ public class Polygon extends Geometry {
 			if( ( point.y > Math.min( p1.y, p2.y ) ) && ( point.y <= Math.max( p1.y, p2.y ) ) ) {
 				
 				/* Point is before the x axis */
-				if( point.x <= Math.max( p1.x, p2.x ) ) {
+				if( point.x < Math.max( p1.x, p2.x ) ) {
 					
 					/* The y axis of the two points cannot be the same */
 					if( p1.y != p2.y ) {
 						double d = ( point.y - p1.y ) * ( p2.x - p1.x ) - ( point.x - p1.x ) * ( p2.y - p1.y );
-						if( p1.x == p2.x || d >= 0 ) {
-							if( d == 0 && !coincident ) {
-								coincident = true;
-							} else {
-								counter++;
-							}
-							
+						if( p1.x == p2.x || d > 0 ) {
+							counter++;							
 						}
 					}
 				}
