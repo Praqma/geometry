@@ -1,13 +1,13 @@
 package net.praqma.geometry;
 
 public class Polygon extends Geometry {
-	
+
 	public Geometry endPolygon() {
 		this.points.add( this.points.get( 0 ) );
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * Determine if a point is contained in the polygon or not.
 	 * @param point
