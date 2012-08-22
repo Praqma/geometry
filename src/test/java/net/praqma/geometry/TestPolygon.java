@@ -9,51 +9,87 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class TestPolygon extends Geometry {
 	
+	/**
+	 * <pre>
+	 *  3  a1 a2 a3 a4 a5
+	 *                  
+	 *  2  b1 b2-b3-b4 b5
+	 *        |     |
+	 *  1  c1 c2 c3 c4 c5
+	 *        |     |
+	 *  0  d1 d2-d3-d4 d5
+	 *                  
+	 * -1  e1 e2 e3 e4 e5
+	 *  
+	 *     -1 0  1  2  3
+	 * </pre>
+	 */
 	@Test
 	public void isPointInside() {
 		
 		Polygon p = new Polygon();
-		p.addPoint( 0, 0 ).addPoint( 1, 0 ).addPoint( 1, 1 ).addPoint( 0, 1 );
+		p.addPoint( 0, 0 ).addPoint( 2, 0 ).addPoint( 2, 2 ).addPoint( 0, 2 );
 		p.endPolygon();
 		
-		/* In the middle */
-		Point p1 = new Point( 0.5, 0.5 );
+		Point a1 = new Point( -1.0, 3.0 );
+		Point a2 = new Point( 0.0, 3.0 );
+		Point a3 = new Point( 1.0, 3.0 );
+		Point a4 = new Point( 2.0, 3.0 );
+		Point a5 = new Point( 3.0, 3.0 );
 		
-		/* On edges */
-		Point p2_bottom = new Point( 0.5, 0 );
-		Point p2_right = new Point( 1, 0.5 );
-		Point p2_top = new Point( 0.5, 1 );
-		Point p2_left = new Point( 0, 0.5 );
+		assertThat( p.contains( a1 ), is( false ) );
+		assertThat( p.contains( a2 ), is( false ) );
+		assertThat( p.contains( a3 ), is( false ) );
+		assertThat( p.contains( a4 ), is( false ) );
+		assertThat( p.contains( a5 ), is( false ) );
 		
-		/* On vertexes */
-		Point p3_bl = new Point( 0, 0 );
-		Point p3_br = new Point( 1, 0 );
-		Point p3_tr = new Point( 1, 1 );
-		Point p3_tl = new Point( 0, 1 );
+		Point b1 = new Point( -1.0, 2.0 );
+		Point b2 = new Point( 0.0, 2.0 );
+		Point b3 = new Point( 1.0, 2.0 );
+		Point b4 = new Point( 2.0, 2.0 );
+		Point b5 = new Point( 3.0, 2.0 );
 		
-		/*  */
-		Point p4_1 = new Point( -0.5, 0.5 );
-		Point p4_2 = new Point( 0.5, -0.5 );
-		Point p4_3 = new Point( 1.5, 0.5 );
-		Point p4_4 = new Point( 0.5, 1.5 );
+		assertThat( p.contains( b1 ), is( false ) );
+		assertThat( p.contains( b2 ), is( false ) );
+		assertThat( p.contains( b3 ), is( true ) );
+		assertThat( p.contains( b4 ), is( true ) );
+		assertThat( p.contains( b5 ), is( false ) );
+		
+		Point c1 = new Point( -1.0, 1.0 );
+		Point c2 = new Point( 0.0, 1.0 );
+		Point c3 = new Point( 1.0, 1.0 );
+		Point c4 = new Point( 2.0, 1.0 );
+		Point c5 = new Point( 3.0, 1.0 );
+		
+		assertThat( p.contains( c1 ), is( false ) );
+		assertThat( p.contains( c2 ), is( false ) );
+		assertThat( p.contains( c3 ), is( true ) );
+		assertThat( p.contains( c4 ), is( true ) );
+		assertThat( p.contains( c5 ), is( false ) );
+		
+		Point d1 = new Point( -1.0, 0.0 );
+		Point d2 = new Point( 0.0, 0.0 );
+		Point d3 = new Point( 1.0, 0.0 );
+		Point d4 = new Point( 2.0, 0.0 );
+		Point d5 = new Point( 3.0, 0.0 );
+		
+		assertThat( p.contains( d1 ), is( false ) );
+		assertThat( p.contains( d2 ), is( false ) );
+		assertThat( p.contains( d3 ), is( false ) );
+		assertThat( p.contains( d4 ), is( false ) );
+		assertThat( p.contains( d5 ), is( false ) );
+		
+		Point e1 = new Point( -1.0, -1.0 );
+		Point e2 = new Point( 0.0, -1.0 );
+		Point e3 = new Point( 1.0, -1.0 );
+		Point e4 = new Point( 2.0, -1.0 );
+		Point e5 = new Point( 3.0, -1.0 );
+		
+		assertThat( p.contains( e1 ), is( false ) );
+		assertThat( p.contains( e2 ), is( false ) );
+		assertThat( p.contains( e3 ), is( false ) );
+		assertThat( p.contains( e4 ), is( false ) );
+		assertThat( p.contains( e5 ), is( false ) );
 
-		
-		assertThat( p.isInside( p1 ), is( true ) );
-		
-		assertThat( p.isInside( p2_bottom ), is( false ) );
-		assertThat( p.isInside( p2_right ), is( true ) );
-		assertThat( p.isInside( p2_top ), is( true ) );
-		assertThat( p.isInside( p2_left ), is( false ) );
-		
-		assertThat( p.isInside( p3_bl ), is( false ) );
-		assertThat( p.isInside( p3_br ), is( false ) );
-		assertThat( p.isInside( p3_tr ), is( true ) );
-		assertThat( p.isInside( p3_tl ), is( false ) );
-		
-		System.out.println( "----------------------Other" );
-		assertThat( p.isInside( p4_1 ), is( false ) );
-		assertThat( p.isInside( p4_2 ), is( false ) );
-		assertThat( p.isInside( p4_3 ), is( false ) );
-		assertThat( p.isInside( p4_4 ), is( false ) );
 	}
 }

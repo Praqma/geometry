@@ -8,7 +8,7 @@ public class Polygon extends Geometry {
 		return this;
 	}
 	
-	public boolean isInside( Point point ) {
+	public boolean contains( Point point ) {
 		
 		/* TODO: Should we test the size? */
 		
@@ -28,15 +28,9 @@ public class Polygon extends Geometry {
 					
 					/* The y axis of the two points cannot be the same */
 					if( p1.y != p2.y ) {
-						xIntersects = ( point.y - p1.y ) * ( p2.x - p1.x ) / ( p2.y - p1.y ) + p1.x;
-						System.out.println( "p: " + point + ", p1: " + p1 + ", p2: " + p2 );
-						System.out.println( "xInter: " + xIntersects );
-						//double ddd = (point.y - p1.y) * (p2.x - p1.x) - (point.x - p1.x) * (p2.y - p1.y);
-						double ddd = (point.x - p1.x) * (p2.x - p1.x) + (point.y - p1.y) * (p2.y - p1.y);
-						System.out.println( "DDD: " + ddd );
-						if( p1.x == p2.x || point.x <= xIntersects ) {
+						double d = ( point.y - p1.y ) * ( p2.x - p1.x ) - ( point.x - p1.x ) * ( p2.y - p1.y );
+						if( p1.x == p2.x || d > 0 ) {
 							counter++;
-							System.out.println( "COUNTER" );
 						}
 					}
 				}

@@ -29,5 +29,4 @@ public class Line extends Geometry {
 			return GeometricSide.COINCIDENT;
 		}
 	}
-	
 }
