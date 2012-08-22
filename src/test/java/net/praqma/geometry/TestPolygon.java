@@ -50,9 +50,9 @@ public class TestPolygon extends Geometry {
 		Point b5 = new Point( 3.0, 2.0 );
 		
 		assertThat( p.contains( b1 ), is( false ) );
-		assertThat( p.contains( b2 ), is( false ) );
+		assertThat( p.contains( b2 ), is( true ) );
 		assertThat( p.contains( b3 ), is( true ) );
-		assertThat( p.contains( b4 ), is( true ) );
+		assertThat( p.contains( b4 ), is( false ) );
 		assertThat( p.contains( b5 ), is( false ) );
 		
 		Point c1 = new Point( -1.0, 1.0 );
@@ -62,9 +62,9 @@ public class TestPolygon extends Geometry {
 		Point c5 = new Point( 3.0, 1.0 );
 		
 		assertThat( p.contains( c1 ), is( false ) );
-		assertThat( p.contains( c2 ), is( false ) );
+		assertThat( p.contains( c2 ), is( true ) );
 		assertThat( p.contains( c3 ), is( true ) );
-		assertThat( p.contains( c4 ), is( true ) );
+		assertThat( p.contains( c4 ), is( false ) );
 		assertThat( p.contains( c5 ), is( false ) );
 		
 		Point d1 = new Point( -1.0, 0.0 );
@@ -91,5 +91,48 @@ public class TestPolygon extends Geometry {
 		assertThat( p.contains( e4 ), is( false ) );
 		assertThat( p.contains( e5 ), is( false ) );
 
+	}
+	
+	/**
+	 * 
+	 * <pre>
+	 * 4      a1
+	 *       /  \
+	 * 3   a2    a3
+	 *     /      \
+	 * 2  a4      a5
+	 *     \      /
+	 * 1   a6    a7
+	 *       \  /
+	 * 0      a8
+	 * 
+	 *    0   1   2
+	 *      
+	 * </pre>
+	 */
+	@Test
+	public void containsSkew() {
+		
+		Polygon p = new Polygon();
+		p.addPoint( 1, 0 ).addPoint( 2, 2 ).addPoint( 1, 4 ).addPoint( 0, 2 );
+		p.endPolygon();
+		
+		Point a1 = new Point( 1.0, 4.0 );
+		Point a2 = new Point( 0.5, 3.0 );
+		Point a3 = new Point( 1.5, 3.0 );
+		Point a4 = new Point( 0.0, 2.0 );
+		Point a5 = new Point( 2.0, 2.0 );
+		Point a6 = new Point( 0.5, 1.0 );
+		Point a7 = new Point( 1.5, 1.0 );
+		Point a8 = new Point( 1.0, 0.0 );
+		
+		assertThat( p.contains( a1 ), is( true ) );
+		assertThat( p.contains( a2 ), is( true ) );
+		assertThat( p.contains( a3 ), is( false ) );
+		assertThat( p.contains( a4 ), is( true ) );
+		assertThat( p.contains( a5 ), is( false ) );
+		assertThat( p.contains( a6 ), is( true ) );
+		assertThat( p.contains( a7 ), is( false ) );
+		assertThat( p.contains( a8 ), is( false ) );
 	}
 }

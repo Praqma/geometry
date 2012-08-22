@@ -8,11 +8,18 @@ public class Polygon extends Geometry {
 		return this;
 	}
 	
+	/**
+	 * Determine if a point is contained in the polygon or not.
+	 * @param point
+	 * @return True or false whether the point is contained in the polygon or not
+	 */
 	public boolean contains( Point point ) {
 		
 		/* TODO: Should we test the size? */
 		
 		int counter = 0;
+		boolean coincident = false;
+		
 		Point p1 = points.get( 0 ), p2 = null;
 		
 		/* Iterate all edges */
@@ -28,8 +35,13 @@ public class Polygon extends Geometry {
 					/* The y axis of the two points cannot be the same */
 					if( p1.y != p2.y ) {
 						double d = ( point.y - p1.y ) * ( p2.x - p1.x ) - ( point.x - p1.x ) * ( p2.y - p1.y );
-						if( p1.x == p2.x || d > 0 ) {
-							counter++;
+						if( p1.x == p2.x || d >= 0 ) {
+							if( d == 0 && !coincident ) {
+								coincident = true;
+							} else {
+								counter++;
+							}
+							
 						}
 					}
 				}
