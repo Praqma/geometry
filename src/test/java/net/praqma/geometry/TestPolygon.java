@@ -20,7 +20,7 @@ public class TestPolygon extends Geometry {
 	 *  0  d1 d2-d3-d4 d5
 	 *                  
 	 * -1  e1 e2 e3 e4 e5
-	 *  
+	 *
 	 *     -1 0  1  2  3
 	 * </pre>
 	 */
