@@ -14,7 +14,6 @@ public abstract class Geometry {
 	protected List<Point> points = new ArrayList<Point>();
 
 	public Geometry() {
-
 		
 	}
 
